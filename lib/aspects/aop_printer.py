@@ -1,7 +1,7 @@
-import aspects.aspect as aop
+from .aspect import Aspect
 
 
-class AOPPrinter(aop.Aspect):
+class AOPPrinter(Aspect):
 
     def pre_process(self, *args, **kwargs):
         from datetime import datetime

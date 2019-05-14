@@ -13,10 +13,10 @@ class DataclassSerializer:
 
     @staticmethod
     def deserialize(data_type, path):
-        return data_type(** DataclassSerializer._load_config_as_dict(path))
+        return data_type(** DataclassSerializer.load_json_as_dict(path))
 
     @staticmethod
-    def _load_config_as_dict(path):
+    def load_json_as_dict(path):
         with open(path, mode='r', encoding='utf-8') as f:
             dict_data = json.load(f)
         return dict_data

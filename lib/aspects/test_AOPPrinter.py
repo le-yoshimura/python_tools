@@ -1,5 +1,5 @@
 from unittest import TestCase
-from aspects.aop_printer import AOPPrinter
+from .aop_printer import AOPPrinter
 
 
 @AOPPrinter()
