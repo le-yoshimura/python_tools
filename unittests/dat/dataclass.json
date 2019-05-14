@@ -1,0 +1,9 @@
+{
+    "value1": "1",
+    "value2": 2,
+    "value3": 3.3,
+    "value4": {
+        "dict1": 12,
+        "dict2": "text"
+    }
+}
