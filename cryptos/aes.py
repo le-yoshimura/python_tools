@@ -46,11 +46,11 @@ class AES(ABCCrypto):
 
         """
         size = len(self._key)
-        if size > Cipher.AES.key_size[2]:
-            # 鍵長が32byteを超える場合
+        if size >= Cipher.AES.key_size[2]:
+            # 鍵長が32byte以上の場合
             self._key = self._key[:Cipher.AES.key_size[2]].encode()
-        elif size > Cipher.AES.key_size[1]:
-            # 鍵長が24byteを超える場合
+        elif size >= Cipher.AES.key_size[1]:
+            # 鍵長が24byte以上の場合
             self._key = self._key[:Cipher.AES.key_size[1]].encode()
         elif size >= Cipher.AES.key_size[0]:
             # 鍵長が16byte以上の場合
