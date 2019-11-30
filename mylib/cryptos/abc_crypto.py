@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 import base64
-import pickle
+
 
 class ABCCrypto(metaclass=ABCMeta):
 

@@ -2,6 +2,7 @@ from Crypto import Cipher
 from .abc_crypto import ABCCrypto
 from Crypto import Random
 from Crypto.Util import Counter
+import base64
 
 
 class AES(ABCCrypto):
@@ -22,10 +23,10 @@ class AES(ABCCrypto):
         """
         return text + (block_size - len(text.encode()) % block_size) * chr(block_size - len(text.encode()) % block_size)
 
-    def __init__(self
-                 , key: str
-                 , mode: Cipher.blockalgo = Cipher.AES.blockalgo.MODE_CBC
-                 , segment_size=8):
+    def __init__(self,
+                 key: str,
+                 mode: Cipher.blockalgo = Cipher.AES.blockalgo.MODE_CBC,
+                 segment_size=8):
         """
         コンストラクタ
         Args:
@@ -109,8 +110,20 @@ class AES(ABCCrypto):
         unpadded = decrypted[:-ord(decrypted[len(decrypted) - 1:])]
         return unpadded.decode()
 
+    def encrypt_file(self, path):
+        with open(path, mode='r', encoding='utf-8') as f:
+            text = f.read()
+            iv, encrypted = self.encrypt(text=text)
+            base64text = (base64.b64encode(iv) + base64.b64encode(encrypted)).decode('ascii')
+        with open(path, mode='w', encoding='utf-8') as f:
+            f.write(base64text)
 
-
-
-
+    def decrypt_file(self, path):
+        with open(path, mode='r', encoding='utf-8') as f:
+            file = f.read()
+            iv = base64.b64decode(file[:24])
+            text = base64.b64decode(file[24:])
+            decrypted = self.decrypt(text=text, iv=iv)
+        with open(path, mode='w', encoding='utf-8') as f:
+            f.write(decrypted)
 

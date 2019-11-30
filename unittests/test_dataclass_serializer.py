@@ -30,14 +30,26 @@ class MyTestCase(unittest.TestCase):
         import os
         if os.path.exists(self._path):
             os.remove(self._path)
-        DataclassSerializer.serialize(self._data, self._path)
+        DataclassSerializer.serialize_with_encrypt(self._data, self._path)
         self.assertTrue(os.path.exists(self._path))
 
     @AOPUnitTest()
     def test_deserialize(self):
-        res: TestModel = DataclassSerializer.deserialize(TestModel, self._path)
+        res: TestModel = DataclassSerializer.deserialize_with_decrypt(TestModel, self._path)
         self.assertEqual(res, self._data)
 
+    @AOPUnitTest()
+    def test_serialize(self):
+        import os
+        if os.path.exists(self._path):
+            os.remove(self._path)
+        DataclassSerializer.serialize_with_encrypt(self._data, self._path, '1234')
+        self.assertTrue(os.path.exists(self._path))
+
+    @AOPUnitTest()
+    def test_deserialize(self):
+        res: TestModel = DataclassSerializer.deserialize_with_decrypt(TestModel, self._path, '1234')
+        self.assertEqual(res, self._data)
 
 if __name__ == '__main__':
     unittest.main()
