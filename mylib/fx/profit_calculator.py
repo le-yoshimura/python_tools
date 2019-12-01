@@ -58,7 +58,7 @@ class ProfitCalculator(object):
         self._position = current
         self._position_flag = flag
 
-    def close_posision(self, current, flag):
+    def close_position(self, current, flag):
         try:
             if self._position is None or self._position_flag is None:
                 return 0
