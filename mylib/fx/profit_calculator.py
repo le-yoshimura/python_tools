@@ -21,7 +21,6 @@ class ProfitCalculator(object):
         mode: Mode
         spread: float
 
-
     def __init__(self, context:Context):
         self._context = context
         self._check_data()
@@ -48,17 +47,17 @@ class ProfitCalculator(object):
                 return 0
         if flag == self._position_flag:
             return 0
-        answer = self.close_posision(current, flag)
-        self.create_position(current, flag)
+        answer = self._close_position(current, flag)
+        self._create_position(current, flag)
         return answer
 
-    def create_position(self, current, flag):
+    def _create_position(self, current, flag):
         if flag == self.Context.Flag.HOLD or self._position is not None or self._position_flag is not None:
             return
         self._position = current
         self._position_flag = flag
 
-    def close_position(self, current, flag):
+    def _close_position(self, current, flag):
         try:
             if self._position is None or self._position_flag is None:
                 return 0
